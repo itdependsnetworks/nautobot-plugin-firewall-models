@@ -14,7 +14,7 @@ from netaddr import IPAddress
 from taggit.managers import TaggableManager
 
 from nautobot_firewall_models import choices, validators
-from nautobot_firewall_models.utils import get_default_status
+from nautobot_firewall_models.utils import get_default_status, serializer_to_json
 
 
 @extras_features(
@@ -531,6 +531,33 @@ class PolicyRule(PrimaryModel):
         """Return detail view URL."""
         return reverse("plugins:nautobot_firewall_models:policyrule", args=[self.pk])
 
+    def rule_details(self):
+        """A convenience method to convert a PolicyRule into more consumable data structure."""
+        row = {}
+        row["rule"] = self
+        row["source_address_group"] = self.source_address_group.all()
+        row["source_address"] = self.source_address.all()
+        row["source_user"] = self.source_user.all()
+        row["source_user_group"] = self.source_user_group.all()
+        row["source_zone"] = self.source_zone
+
+        row["destination_address_group"] = self.destination_address_group.all()
+        row["destination_address"] = self.destination_address.all()
+        row["destination_zone"] = self.destination_zone
+
+        row["service"] = self.service.all()
+        row["service_group"] = self.service_group.all()
+
+        row["action"] = self.action
+        row["log"] = self.log
+        row["status"] = self.status
+        row["request_id"] = self.request_id
+        return row
+
+    def to_json(self):
+        """A convenience method to convert entire PolicyRule to json, based on serializer."""
+        return serializer_to_json(self)
+
     def __str__(self):
         """Stringify instance."""
         if self.request_id:
@@ -589,6 +616,17 @@ class Policy(PrimaryModel):
     def get_absolute_url(self):
         """Return detail view URL."""
         return reverse("plugins:nautobot_firewall_models:policy", args=[self.pk])
+
+    def policy_details(self):
+        """A convenience method to convert an entire Policy to a data structure, based on a list of `rule_details`."""
+        data = []
+        for policy_rule in self.policy_rules.all():
+            data.append(policy_rule.rule_details())
+        return data
+
+    def to_json(self):
+        """A convenience method to convert to entire Policy to json, based on serializer."""
+        return serializer_to_json(self)
 
     def __str__(self):
         """Stringify instance."""
