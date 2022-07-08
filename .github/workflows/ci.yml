@@ -220,6 +220,8 @@ jobs:
         Release: <${{ '{{ github.server_url }}' }}/${{ '{{ github.repository }}' }}/releases/tag/${{ '{{ github.ref_name }}' }}|${{ '{{ github.ref_name }}' }}>\n
         Published by: <${{ '{{ github.server_url }}' }}/${{ '{{ github.actor }}' }}|${{ '{{ github.actor }}' }}>
     steps:
+      - name: "DEBUG"
+        run: "echo {{ env.SLACK_MESSAGE }}"
       - name: "Send a notification to Slack"
         # ENVs cannot be used directly in job.if. This is a workaround to check
         # if SLACK_WEBHOOK_URL is present.
