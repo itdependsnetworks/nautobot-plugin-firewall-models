@@ -228,8 +228,15 @@ jobs:
         with:
           payload: |
             {
-              "key": "value",
-              "foo": "bar"
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "${{ '{{ env.SLACK_MESSAGE }}' }}"
+                  }
+                }
+              ]
             }
         # with:
         #   payload: |
