@@ -228,17 +228,31 @@ jobs:
         with:
           payload: |
             {
-              "text": "${{ '{{ env.SLACK_MESSAGE }}' }}",
+              "text": "GitHub Action build result",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "${{ '{{ env.SLACK_MESSAGE }}' }}"
+                    "text": "GitHub Action build result:"
                   }
                 }
               ]
             }
+        # with:
+        #   payload: |
+        #     # {
+        #     #   "text": "${{ '{{ env.SLACK_MESSAGE }}' }}",
+        #     #   "blocks": [
+        #     #     {
+        #     #       "type": "section",
+        #     #       "text": {
+        #     #         "type": "mrkdwn",
+        #     #         "text": "${{ '{{ env.SLACK_MESSAGE }}' }}"
+        #     #       }
+        #     #     }
+        #     #   ]
+        #     # }
         env:
           SLACK_WEBHOOK_URL: "${{ '{{ secrets.SLACK_WEBHOOK_URL }}' }}"
           SLACK_WEBHOOK_TYPE: "INCOMING_WEBHOOK"
