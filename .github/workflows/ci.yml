@@ -228,16 +228,8 @@ jobs:
         with:
           payload: |
             {
-              "text": "GitHub Action build result",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "GitHub Action build result:"
-                  }
-                }
-              ]
+              "key": "value",
+              "foo": "bar"
             }
         # with:
         #   payload: |
