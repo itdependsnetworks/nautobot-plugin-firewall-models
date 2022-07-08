@@ -235,7 +235,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "${{ '{{ env.SLACK_MESSAGE }}' }}"
+                    "text": "${{ env.SLACK_MESSAGE }}"
                   }
                 }
               ]
