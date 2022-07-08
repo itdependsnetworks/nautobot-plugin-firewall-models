@@ -230,6 +230,7 @@ jobs:
         with:
           payload: |
             {
+              "text": "${{ env.SLACK_MESSAGE }}",
               "blocks": [
                 {
                   "type": "section",
