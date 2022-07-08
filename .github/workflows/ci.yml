@@ -208,9 +208,9 @@ jobs:
   #         user: "__token__"
   #         password: "${{ secrets.PYPI_API_TOKEN }}"
   slack-notify:
-    needs:
-      - "publish_gh"
-      - "publish_pypi"
+    # needs:
+    #   - "publish_gh"
+    #   - "publish_pypi"
     runs-on: "ubuntu-20.04"
     env:
       SLACK_WEBHOOK_URL: "${{ '{{ secrets.SLACK_WEBHOOK_URL }}' }}"
